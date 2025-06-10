@@ -28,6 +28,8 @@ awful.keyboard.append_global_keybindings({
       { description = 'run prompt', group = 'launcher' }),
    awful.key({ modkey            }, 'p', function() require('menubar').show() end,
       { description = 'show the menubar', group = 'launcher' }),
+   awful.key({ modkey,           }, 'e', function() awful.spawn(apps.file_manager) end,
+      { description = 'open file manager', group = 'launcher'}),
 
    -- Tags related keybindings.
    awful.key({ modkey,           }, 'Left', awful.tag.viewprev,
