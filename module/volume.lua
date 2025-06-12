@@ -3,6 +3,8 @@ local gears = require("gears")
 
 local user_system_signal = require("enums/user_system_signal")
 local utilities = require("utilities")
+local notification = require("module/notification")
+local icons = require("theme/icons")
 
 local volume = {
 	level = 0, -- temporary placeholder
@@ -25,6 +27,60 @@ function volume.sync_from_system()
 			volume.set(tonumber(vol))
 		end
 	end)
+end
+
+function volume.up()
+	local new_value = volume.get() + 5
+
+	if new_value >= 100 then
+		new_value = 100
+	end
+
+	volume.set(new_value)
+
+	local icon = icons.volume_low
+
+	if new_value >= 0 and new_value < 50 then
+		icon = icons.volume_low
+	elseif new_value >= 50 and new_value < 70 then
+		icon = icons.volume_medium
+	else
+		icon = icons.volume_high
+	end
+
+	notification.notify("volume", {
+		title = "Volume",
+		message = tostring(new_value) .. "%",
+		icon = icon,
+	})
+end
+
+function volume.down()
+	local new_value = volume.get() - 5
+
+	if new_value <= 0 then
+		new_value = 0
+	end
+
+	volume.set(new_value)
+
+	local icon = icons.volume_low
+
+	if new_value > 0 and new_value < 50 then
+		icon = icons.volume_low
+	elseif new_value >= 50 and new_value < 70 then
+		icon = icons.volume_medium
+	elseif new_value == 0 then
+		icon = icons.volume_off
+	else
+		icon = icons.volume_high
+	end
+
+	notification.notify("volume", {
+		title = "Volume",
+		message = tostring(new_value) .. "%",
+		icon = icon,
+	})
 end
 
 -- 🔥 Init from system at startup

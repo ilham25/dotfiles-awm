@@ -6,4 +6,5 @@ return {
 	-- upon creation.
 	tag = require(... .. ".tag"),
 	screen = require(... .. ".screen"),
+	naughty = require(... .. ".naughty"),
 }

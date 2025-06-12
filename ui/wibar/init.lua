@@ -13,7 +13,7 @@ return function(s)
 	s.mypromptbox = awful.widget.prompt() -- Create a promptbox.
 
 	praisewidget = wibox.widget.textbox()
-	praisewidget.text = variables.user
+	praisewidget.text = gears.filesystem.get_awesome_icon_dir()
 
 	-- Create the wibox
 	s.mywibox = awful.wibar({
@@ -36,7 +36,7 @@ return function(s)
 				-- Right widgets.
 				{
 					layout = wibox.layout.fixed.horizontal,
-					module.command_center(),
+					module.quick_settings_button(),
 					-- slider,
 					awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher.
 					wibox.widget.systray(),

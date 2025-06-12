@@ -4,6 +4,7 @@ local mod = require("binds.mod")
 local modkey = mod.modkey
 
 local apps = require("config.apps")
+local volume = require("module/volume")
 
 --- Global key bindings
 awful.keyboard.append_global_keybindings({
@@ -184,4 +185,13 @@ awful.keyboard.append_global_keybindings({
 			end
 		end,
 	}),
+
+	-- Volume related keybindings
+	awful.key({}, "XF86AudioLowerVolume", function()
+		volume.down()
+	end, { description = "lower volume by 5%", group = "system_shortcut" }),
+
+	awful.key({}, "XF86AudioRaiseVolume", function()
+		volume.up()
+	end, { description = "raise volume by 5%", group = "system_shortcut" }),
 })
