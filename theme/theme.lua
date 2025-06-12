@@ -13,9 +13,14 @@ local theme = {}
 
 local variables = require("config/variables")
 local colors = require("theme/colors")
+local icons = require("theme/icons")
 
-theme.font = "Product Sans 11"
+theme.font_family = variables.font_family
+theme.font_size = variables.font_size
+theme.font = theme.font_family .. " " .. tostring(theme.font_size)
 
+theme.colors = colors
+theme.icons = icons
 theme.bg_normal = colors.base
 theme.bg_focus = colors.surface0
 theme.bg_urgent = colors.red
@@ -36,6 +41,8 @@ theme.border_color_active = colors.surface0
 theme.border_color_marked = "#91231c"
 
 theme.wibar_size = dpi(40)
+
+theme.dpi = dpi
 
 -- There are other variable sets
 -- overriding the default one when
@@ -120,6 +127,8 @@ theme.layout_cornernw = themes_path .. "default/layouts/cornernww.png"
 theme.layout_cornerne = themes_path .. "default/layouts/cornernew.png"
 theme.layout_cornersw = themes_path .. "default/layouts/cornersww.png"
 theme.layout_cornerse = themes_path .. "default/layouts/cornersew.png"
+
+-- Slider theme
 
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(theme.menu_height, theme.bg_focus, theme.fg_focus)

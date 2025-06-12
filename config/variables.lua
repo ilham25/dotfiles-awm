@@ -16,7 +16,7 @@ wallpapers.get_dir = function()
 	return variables.home .. "/Pictures/Wallpapers/"
 end
 
-wallpapers.default = wallpapers.get_dir() .. "wallhaven-k898gq.jpg"
+wallpapers.default = wallpapers.get_dir() .. "aether-dark.png"
 
 variables.wallpapers = wallpapers
 
@@ -24,5 +24,7 @@ variables.wallpapers = wallpapers
 variables.palette = "catpuccin/mocha"
 
 --- Other vars
+variables.font_family = "Product Sans"
+variables.font_size = 11
 
 return variables

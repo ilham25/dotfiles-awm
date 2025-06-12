@@ -1,0 +1,15 @@
+{
+  "workspace": {
+    "library": [
+      "/usr/share/awesome/lib"
+    ]
+  },
+  "globals": [
+    "awesome",
+    "client",
+    "screen",
+    "root",
+    "mouse"
+  ]
+}
+

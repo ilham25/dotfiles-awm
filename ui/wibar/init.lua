@@ -36,7 +36,7 @@ return function(s)
 				-- Right widgets.
 				{
 					layout = wibox.layout.fixed.horizontal,
-					-- module.command_center(),
+					module.command_center(),
 					-- slider,
 					awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher.
 					wibox.widget.systray(),
