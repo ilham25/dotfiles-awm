@@ -27,6 +27,18 @@ function media.set_position(seconds)
 	awful.spawn.easy_async_with_shell(cmd, function() end)
 end
 
+function media.toggle_play_pause()
+	awful.spawn.easy_async_with_shell("playerctl play-pause", function() end)
+end
+
+function media.previous()
+	awful.spawn.easy_async_with_shell("playerctl previous", function() end)
+end
+
+function media.next()
+	awful.spawn.easy_async_with_shell("playerctl next", function() end)
+end
+
 function media.sync_from_system()
 	-- Check if any player is available
 	awful.spawn.easy_async_with_shell(

@@ -15,18 +15,6 @@ return function(args)
 	local media_control = module.media_control()
 
 	local content = wibox.widget({
-		-- {
-		-- 	row_index = 1,
-		-- 	col_index = 1,
-		-- 	col_span = 2,
-		-- 	widget = quick_control,
-		-- },
-		-- {
-		-- 	row_index = 1,
-		-- 	col_index = 3,
-		-- 	col_span = 2,
-		-- 	widget = other_control,
-		-- },
 		{
 			row_index = 1,
 			col_index = 1,

@@ -58,11 +58,11 @@ return function()
 	})
 	local media_slider = wibox.widget({
 		bar_shape = gears.shape.rounded_bar,
-		bar_height = 3,
+		bar_height = beautiful.dpi(5),
 		bar_color = beautiful.colors.text,
 		handle_color = beautiful.colors.text,
 		handle_shape = gears.shape.circle,
-		handle_width = beautiful.dpi(10),
+		handle_width = beautiful.dpi(15),
 		handle_border_color = beautiful.border_color,
 		handle_border_width = 1,
 		value = 0,
@@ -70,6 +70,28 @@ return function()
 		minimum = 0,
 		widget = wibox.widget.slider,
 		forced_height = beautiful.dpi(20),
+	})
+
+	local media_play_toggle_button = wibox.widget({
+		widget = wibox.widget.imagebox,
+		stylesheet = utilities.svg.set_color(beautiful.colors.text),
+		forced_height = beautiful.dpi(20),
+		forced_width = beautiful.dpi(20),
+		image = beautiful.icons.media_play,
+	})
+	local media_next_button = wibox.widget({
+		widget = wibox.widget.imagebox,
+		stylesheet = utilities.svg.set_color(beautiful.colors.text),
+		forced_height = beautiful.dpi(20),
+		forced_width = beautiful.dpi(20),
+		image = beautiful.icons.media_next,
+	})
+	local media_previous_button = wibox.widget({
+		widget = wibox.widget.imagebox,
+		stylesheet = utilities.svg.set_color(beautiful.colors.text),
+		forced_height = beautiful.dpi(20),
+		forced_width = beautiful.dpi(20),
+		image = beautiful.icons.media_previous,
 	})
 
 	local widget = ui_common.card.section_card({
@@ -94,6 +116,17 @@ return function()
 						layout = wibox.layout.flex.horizontal,
 					},
 					media_slider,
+					{
+						{
+							media_previous_button,
+							media_play_toggle_button,
+							media_next_button,
+							spacing = beautiful.dpi(10),
+							layout = wibox.layout.fixed.horizontal,
+						},
+						widget = wibox.container.place,
+						halign = "center",
+					},
 					layout = wibox.layout.fixed.vertical,
 				},
 				spacing = beautiful.dpi(5),
@@ -128,9 +161,21 @@ return function()
 			artist_textbox.markup = utilities.text.colored_text(args.title, text_color)
 			media_length.markup = utilities.text.colored_text(media.format_duration(args.length), text_color)
 			progress_minute.markup = utilities.text.colored_text(media.format_duration(args.position), text_color)
+			media_slider.bar_color = text_color
+			media_slider.handle_color = text_color
+			media_play_toggle_button.stylesheet = utilities.svg.set_color(text_color)
+			media_previous_button.stylesheet = utilities.svg.set_color(text_color)
+			media_next_button.stylesheet = utilities.svg.set_color(text_color)
 
 			if not user_dragging_slider then
 				media_slider.value = math.ceil((args.position / args.length) * 100)
+			end
+
+			-- status
+			if args.status == "Paused" then
+				media_play_toggle_button.image = beautiful.icons.media_play
+			else
+				media_play_toggle_button.image = beautiful.icons.media_pause
 			end
 		end)
 	end)
@@ -153,6 +198,18 @@ return function()
 
 		local seconds = math.ceil((new_value / 100) * media.length)
 		media.set_position(seconds)
+	end)
+
+	media_play_toggle_button:connect_signal("button::press", function()
+		media.toggle_play_pause()
+	end)
+
+	media_previous_button:connect_signal("button::press", function()
+		media.previous()
+	end)
+
+	media_next_button:connect_signal("button::press", function()
+		media.next()
 	end)
 
 	return widget

@@ -25,4 +25,9 @@ icons.battery_full = icons_path .. "battery_full.svg"
 icons.image_outline = icons_path .. "image_outline.svg"
 icons.video_outline = icons_path .. "video_outline.svg"
 
+icons.media_play = icons_path .. "media_play.svg"
+icons.media_pause = icons_path .. "media_pause.svg"
+icons.media_next = icons_path .. "media_next.svg"
+icons.media_previous = icons_path .. "media_previous.svg"
+
 return icons
