@@ -37,6 +37,7 @@ return function(s)
 				{
 					layout = wibox.layout.fixed.horizontal,
 					module.quick_settings_button(),
+					module.battery(),
 					-- slider,
 					awful.widget.keyboardlayout(), -- Keyboard map indicator and switcher.
 					wibox.widget.systray(),

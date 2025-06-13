@@ -18,8 +18,13 @@ local battery = {
 	update = signal_prefix .. "battery::update",
 }
 
+local media = {
+	update = signal_prefix .. "media::update",
+}
+
 signal.volume = volume
 signal.brightness = brightness
 signal.battery = battery
+signal.media = media
 
 return signal

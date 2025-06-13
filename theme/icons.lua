@@ -22,4 +22,7 @@ icons.battery_medium = icons_path .. "battery_medium.svg"
 icons.battery_high = icons_path .. "battery_high.svg"
 icons.battery_full = icons_path .. "battery_full.svg"
 
+icons.image_outline = icons_path .. "image_outline.svg"
+icons.video_outline = icons_path .. "video_outline.svg"
+
 return icons

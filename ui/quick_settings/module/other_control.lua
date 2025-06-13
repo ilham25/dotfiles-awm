@@ -5,7 +5,7 @@ local ui_common = require("ui/common")
 local module = require("ui/quick_settings/module")
 
 return function()
-	local battery_card = ui_common.card.section_card({
+	local media_card = ui_common.card.section_card({
 		{
 			text = "awoekoewa",
 			widget = wibox.widget.textbox,
@@ -40,13 +40,13 @@ return function()
 			row_index = 2,
 			col_index = 1,
 			col_span = 1,
-			widget = extra_card_1,
+			widget = module.screenshot_control(),
 		},
 		{
 			row_index = 2,
 			col_index = 2,
 			col_span = 1,
-			widget = extra_card_2,
+			widget = module.record_control(),
 		},
 		homogeneous = true,
 		expand = true,
