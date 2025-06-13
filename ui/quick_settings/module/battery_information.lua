@@ -63,7 +63,7 @@ return function()
 		indicator,
 		{
 			widget = wibox.container.place,
-			valign = "center",
+			valign = "top",
 			halign = "left",
 			{
 				layout = wibox.layout.fixed.vertical,

@@ -19,7 +19,7 @@ return function(def)
 	local container = wibox.widget({
 		{
 			table.unpack(children),
-			margins = beautiful.dpi(10),
+			margins = def.margins or beautiful.dpi(10),
 			widget = wibox.container.margin,
 		},
 		bg = props.bg or beautiful.colors.surface0,

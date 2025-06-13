@@ -1,4 +1,5 @@
 local awful = require("awful")
+local gears = require("gears")
 
 local user_system_signal = require("enums/user_system_signal")
 
@@ -12,12 +13,29 @@ local media = {
 	is_active = false,
 }
 
+function media.format_duration(seconds)
+	local minutes = math.floor(seconds / 60)
+	local secs = math.floor(seconds % 60)
+	return string.format("%02d:%02d", minutes, secs)
+end
+
+function media.set_position(seconds)
+	media.position = seconds
+	awesome.emit_signal(user_system_signal.media.update, media)
+
+	local cmd = string.format("playerctl position %d", seconds)
+	awful.spawn.easy_async_with_shell(cmd, function() end)
+end
+
 function media.sync_from_system()
 	-- Check if any player is available
 	awful.spawn.easy_async_with_shell(
 		"playerctl metadata --format '{{artist}}|{{title}}|{{mpris:artUrl}}|{{mpris:length}}'",
 		function(out)
-			local artist, title, art_url, length_us = out:match("^(.-)|(.+)|(.+)|(%d+)$")
+			-- local artist, title, art_url, length_us = out:match("^(.-)|(.+)|(.+)|(%d+)$")
+			local artist, title, art_url, length_us = out:match("^(.-)|(.-)|(.-)|(%d+)%s*$")
+
+			-- require("naughty").notification({ title = "media", message = tostring(art_url) })
 
 			-- if metadata is missing, then no media is playing
 			if not (artist and title and length_us) then
@@ -53,13 +71,19 @@ function media.sync_from_system()
 				awful.spawn.easy_async_with_shell("playerctl position", function(pos_out)
 					local pos = tonumber(pos_out)
 					media.position = pos and math.floor(pos) or nil
-
 					-- Emit final signal
-					awesome.emit_signal("user::media::update", media)
+					awesome.emit_signal(user_system_signal.media.update, media)
 				end)
 			end)
 		end
 	)
 end
+
+gears.timer({
+	timeout = 1,
+	autostart = true,
+	call_now = true,
+	callback = media.sync_from_system,
+})
 
 return media

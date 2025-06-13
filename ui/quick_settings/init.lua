@@ -12,6 +12,7 @@ return function(args)
 	local other_control = module.other_control()
 	local brightness_slider_control = module.brightness_slider_control()
 	local sound_slider_control = module.sound_slider_control()
+	local media_control = module.media_control()
 
 	local content = wibox.widget({
 		-- {
@@ -38,6 +39,12 @@ return function(args)
 			col_span = 4,
 			widget = sound_slider_control,
 		},
+		media_control.visible and {
+			row_index = 3,
+			col_index = 1,
+			col_span = 4,
+			widget = media_control,
+		} or nil,
 		homogeneous = false,
 		expand = true,
 		spacing = beautiful.dpi(10),
@@ -67,7 +74,7 @@ return function(args)
 		parent = args.parent,
 		bg = beautiful.colors.base,
 		border_width = beautiful.dpi(1),
-		border_color = beautiful.colors.crust,
+		border_color = beautiful.colors.surface1,
 		shape = function(cr, width, height)
 			gears.shape.rounded_rect(cr, width, height, beautiful.border_radius)
 		end,
