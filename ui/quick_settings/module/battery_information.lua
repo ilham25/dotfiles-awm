@@ -4,12 +4,14 @@ local gears = require("gears")
 
 local utilities = require("utilities")
 local ui_common = require("ui/common")
+local battery = require("module/battery")
+local user_system_signal = require("enums/user_system_signal")
 
 return function()
 	-- Create the progress bar
 	local progressbar = wibox.widget({
 		max_value = 1,
-		value = 0.5, -- 50% progress
+		value = battery.level / 100, -- 50% progress
 		forced_height = beautiful.dpi(14),
 		-- forced_width = 140,
 		shape = gears.shape.rounded_bar,
@@ -22,10 +24,11 @@ return function()
 		margins = {
 			top = beautiful.dpi(4),
 		},
+		-- ticks = true,
 	})
 
 	local icon = wibox.widget({
-		image = beautiful.icons.battery_charging_medium,
+		image = beautiful.icons.battery_empty,
 		widget = wibox.widget.imagebox,
 		forced_height = beautiful.dpi(24),
 		forced_width = beautiful.dpi(24),
@@ -82,6 +85,24 @@ return function()
 	local widget = ui_common.card.section_card({
 		overlay,
 	})
+
+	awesome.connect_signal(user_system_signal.battery.update, function(args)
+		local is_charging = args.status == "Charging"
+
+		value_textbox.markup = utilities.text.colored_text(
+			tostring(args.level or 0) .. "%" .. (args.time_remaining and " (" .. args.time_remaining .. ")" or ""),
+			beautiful.colors.subtext1
+		)
+		if is_charging then
+			progressbar.border_color = progressbar.color
+			icon.stylesheet = "svg { color:" .. progressbar.color .. ";}"
+		else
+			progressbar.border_color = beautiful.colors.surface1
+			icon.stylesheet = "svg { color:" .. beautiful.colors.text .. ";}"
+		end
+		progressbar.value = (args.level or 0) / 100
+		icon.image = battery.icon(args)
+	end)
 
 	return widget
 end

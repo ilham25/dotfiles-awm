@@ -14,7 +14,12 @@ local brightness = {
 	down = signal_prefix .. "brightness_down",
 }
 
+local battery = {
+	update = signal_prefix .. "battery::update",
+}
+
 signal.volume = volume
 signal.brightness = brightness
+signal.battery = battery
 
 return signal
