@@ -6,13 +6,21 @@ local module = require("ui/quick_settings/module")
 
 return function()
 	local connectivity_card = ui_common.card.section_card({
-		wibox.widget({
-			module.wifi_control_item(),
-			module.bluetooth_control_item(),
-			module.sound_control_item(),
-			spacing = beautiful.dpi(10),
-			layout = wibox.layout.fixed.vertical,
-		}),
+		{
+			wibox.widget({
+				module.wifi_control_item(),
+				module.bluetooth_control_item(),
+				module.sound_control_item(),
+				spacing = beautiful.dpi(10),
+				layout = wibox.layout.fixed.vertical,
+			}),
+
+			widget = wibox.container.place,
+			valign = "center",
+			halign = "left",
+		},
+		forced_width = beautiful.dpi(160),
+		forced_height = beautiful.dpi(160),
 	})
 
 	return connectivity_card

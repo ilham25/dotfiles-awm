@@ -2,11 +2,12 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 
 local ui_common = require("ui/common")
+local module = require("ui/quick_settings/module")
 
 return function()
-	local focus_card = ui_common.card.section_card({
+	local battery_card = ui_common.card.section_card({
 		{
-			text = "",
+			text = "awoekoewa",
 			widget = wibox.widget.textbox,
 		},
 		widget = wibox.layout.fixed.horizontal,
@@ -33,7 +34,7 @@ return function()
 			row_index = 1,
 			col_index = 1,
 			col_span = 2,
-			widget = focus_card,
+			widget = module.battery_information(),
 		},
 		{
 			row_index = 2,
@@ -51,6 +52,8 @@ return function()
 		expand = true,
 		widget = wibox.layout.grid,
 		spacing = beautiful.dpi(10),
+		forced_width = beautiful.dpi(160),
+		forced_height = beautiful.dpi(160),
 	})
 
 	return additional_grid

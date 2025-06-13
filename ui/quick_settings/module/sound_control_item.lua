@@ -11,7 +11,7 @@ return function()
 		icon = "󰝟",
 		value = volume.get(),
 		icon_active = "󰕾",
-		active_bg = beautiful.colors.green,
+		active_bg = beautiful.colors.sapphire,
 		icon_active_color = beautiful.colors.base,
 	})
 
