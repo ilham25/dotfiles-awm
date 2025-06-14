@@ -6,7 +6,7 @@ return function()
 	local widget = module.control_item({
 		title = "Bluetooth",
 		icon = "󰂯",
-		value = "Off",
+		value = "On",
 		icon_size = 16,
 		active_bg = beautiful.colors.teal,
 		icon_active_color = beautiful.colors.base,

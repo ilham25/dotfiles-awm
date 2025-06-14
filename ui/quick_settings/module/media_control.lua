@@ -39,21 +39,24 @@ return function()
 
 	local title_textbox = wibox.widget({
 		widget = wibox.widget.textbox,
-		text = "Ini judul lagu",
+		text = "-",
 		font = beautiful.font_family .. "Medium 12",
+		forced_height = beautiful.dpi(16),
 	})
 	local artist_textbox = wibox.widget({
 		widget = wibox.widget.textbox,
-		text = "Ini artist",
+		text = "-",
+		font = beautiful.font_family .. " 9",
+		forced_height = beautiful.dpi(16),
 	})
 
 	local progress_minute = wibox.widget({
 		widget = wibox.widget.textbox,
-		text = "00:00",
+		text = "--:--",
 	})
 	local media_length = wibox.widget({
 		widget = wibox.widget.textbox,
-		text = "04:49",
+		text = "--:--",
 		halign = "right",
 	})
 	local media_slider = wibox.widget({
@@ -107,6 +110,7 @@ return function()
 					title_textbox,
 					artist_textbox,
 					layout = wibox.layout.fixed.vertical,
+					spacing = beautiful.dpi(5),
 				},
 				{
 					{
@@ -129,7 +133,7 @@ return function()
 					},
 					layout = wibox.layout.fixed.vertical,
 				},
-				spacing = beautiful.dpi(5),
+				spacing = beautiful.dpi(10),
 				layout = wibox.layout.fixed.vertical,
 			},
 			spacing = beautiful.dpi(10),
@@ -141,9 +145,9 @@ return function()
 	local user_dragging_slider = false
 
 	awesome.connect_signal(user_system_signal.media.update, function(args)
-		if not args.is_active then
-			widget.visible = false
-		end
+		-- if not args.is_active then
+		-- 	widget.visible = false
+		-- end
 
 		image.image = args.album_art
 

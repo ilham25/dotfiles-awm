@@ -96,9 +96,11 @@ return function()
 		if is_charging then
 			progressbar.border_color = progressbar.color
 			icon.stylesheet = "svg { color:" .. progressbar.color .. ";}"
+			widget.border_color = progressbar.color
 		else
 			progressbar.border_color = beautiful.colors.surface1
 			icon.stylesheet = "svg { color:" .. beautiful.colors.text .. ";}"
+			widget.border_color = beautiful.colors.surface1
 		end
 		progressbar.value = (args.level or 0) / 100
 		icon.image = battery.icon(args)

@@ -4,6 +4,8 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 
 local module = require(... .. ".module")
+local media = require("module/media")
+local user_system_signal = require("enums/user_system_signal")
 
 return function(args)
 	args = args or {}
@@ -27,18 +29,27 @@ return function(args)
 			col_span = 4,
 			widget = sound_slider_control,
 		},
-		media_control.visible and {
-			row_index = 3,
-			col_index = 1,
-			col_span = 4,
-			widget = media_control,
-		} or nil,
 		homogeneous = false,
 		expand = true,
 		spacing = beautiful.dpi(10),
 		column_count = 4,
 		layout = wibox.layout.grid,
 	})
+
+	awesome.connect_signal(user_system_signal.media.update, function(args)
+		local position = content:get_widget_position(media_control)
+		if args.is_active then
+			if position ~= nil then
+				return
+			end
+
+			content:add_widget_at(media_control, 3, 1, 1, 4)
+		else
+			if position ~= nil then
+				content:remove_row(position.row)
+			end
+		end
+	end)
 
 	local popup_widget = awful.popup({
 		widget = {
